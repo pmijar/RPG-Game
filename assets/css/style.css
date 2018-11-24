@@ -1,20 +1,27 @@
 body{
     background-size:cover;
+    background-image: url("../images/Star_War.jpg");
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 h1{
     background-color: aquamarine;
-    font-size: 45px;
+    font-size: 55px;
     text-align: center;
 }
 
 h3{
     font-size: 25px;
-    color:coral;
+    color:darkblue;
+    background-color: aliceblue;
+    text-align: center;
 }
 
 .myClass{
     height:200px;
     width:250px;
+}
+
+#characters, #myCharacter, #enemy ,#EnemyScore, #MyScore, #attack{
+    text-align: center;
 }

@@ -14,7 +14,7 @@ $(document).ready(function() {
         var caption = $("<div>");
         console.log(this);
         characterImage.attr("src", ($(this).attr('src')));
-        characterImage.attr("class","img-thumbnail rounded float-left img-responsive myClass");
+        characterImage.attr("class","img-thumbnail rounded img-responsive myClass");
         caption.text("Actor-" + $(this).attr("data-value"));
 
         if(!v_myCharacterSelected){
@@ -23,7 +23,7 @@ $(document).ready(function() {
             myCharacterIndex = $(this).attr("data-value");
             $("#myCharacter").append(characterImage);
             $(this).remove();
-            alert("Character Selected : "+$(this).attr("data-value"));
+           // alert("Character Selected : "+$(this).attr("data-value"));
 
         }
         else if(!v_enemyCharacterSelected){
@@ -32,7 +32,7 @@ $(document).ready(function() {
             enemyCharacterIndex = $(this).attr("data-value");
             $("#enemy").append(characterImage);  
             $(this).remove();  
-            alert("Enemy Selected : "+$(this).attr("data-value")) ;
+          //  alert("Enemy Selected : "+$(this).attr("data-value")) ;
         }
 
     })
@@ -44,12 +44,13 @@ $(document).ready(function() {
         console.log("BEFORE total Points for My Character -> " + v_characterCollections[myCharacterIndex].total_points);
         v_characterCollections[myCharacterIndex].enemyAttackPoints(v_characterCollections[enemyCharacterIndex].prev_attack_points);
         console.log("AFTER total Points for My Character : " + v_characterCollections[myCharacterIndex].total_points);
+        $("#MyScore").text("Score : "+ v_characterCollections[myCharacterIndex].total_points);
 
         //Enemy Point Reduction
         console.log("BEFORE total Points for Enemy Character -> " + v_characterCollections[enemyCharacterIndex].total_points);
         v_characterCollections[enemyCharacterIndex].enemyAttackPoints(v_characterCollections[myCharacterIndex].prev_attack_points);
         console.log("AFTER total Points for Enemy Character : " + v_characterCollections[enemyCharacterIndex].total_points);
-
+        $("#EnemyScore").text("Score : "+ v_characterCollections[enemyCharacterIndex].total_points);
 
     })
 
@@ -65,7 +66,7 @@ $(document).ready(function() {
 
         var characterPoints = 100+(10*i); // Total Character points when initalized
         characterImage.attr('src', './assets/images/Pic_'+i+'.jpg');
-        characterImage.attr("class","img-thumbnail rounded float-left img-responsive myClass");
+        characterImage.attr("class","img-thumbnail rounded img-responsive myClass");
         characterImage.attr("data-value", i);
        // characterImage.attr("title", $(this).attr("data-value") );
         //caption.text("Actor-" + $(this).attr("data-value"));

@@ -4,6 +4,13 @@ body{
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+span{
+   /* background-color: aquamarine; */
+    font-size: 30px;
+    text-align: center;
+    color:blueviolet
+}
+
 h1{
     background-color: aquamarine;
     font-size: 55px;

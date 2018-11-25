@@ -1,35 +1,40 @@
 var v_myCharacterSelected = false;
 var v_enemyCharacterSelected = false;
 var v_characterCollections = [];
-
+var myCharacterIndex = 0;
+var enemyCharacterIndex = 0;
+var enemySetupPoints = 0;
+var winflag = false;
 
 $(document).ready(function() {
-    var myCharacterIndex = 0;
-    var enemyCharacterIndex = 0;
+
 
     initializeCharacterImages();
 
     $(".myClass").on("click",function(){
+        console.log("myClass Click Called......")
         var characterImage = $("<img>");
-        var caption = $("<div>");
         console.log(this);
         characterImage.attr("src", ($(this).attr('src')));
         characterImage.attr("class","img-thumbnail rounded img-responsive myClass");
-        caption.text("Actor-" + $(this).attr("data-value"));
 
         if(!v_myCharacterSelected){
             v_myCharacterSelected = true;
-            v_characterCollections[$(this).attr("data-value")].myCharacterActive = v_myCharacterSelected;
-            myCharacterIndex = $(this).attr("data-value");
+            myCharacterIndex = $(this).attr("data-value");                     
+            v_characterCollections[myCharacterIndex].myCharacterActive = v_myCharacterSelected;
+            v_characterCollections[myCharacterIndex].setCharacterName(" You ");
             $("#myCharacter").append(characterImage);
             $(this).remove();
+            $("#characterArray").text("Enemies available for attack");
            // alert("Character Selected : "+$(this).attr("data-value"));
 
         }
         else if(!v_enemyCharacterSelected){
             v_enemyCharacterSelected = true;
-            v_characterCollections[$(this).attr("data-value")].meEnemyCharacter = v_enemyCharacterSelected;
             enemyCharacterIndex = $(this).attr("data-value");
+            v_characterCollections[enemyCharacterIndex].meEnemyCharacter = v_enemyCharacterSelected;
+            v_characterCollections[enemyCharacterIndex].setCharacterName(" Defender ");
+            enemySetupPoints = (enemyCharacterIndex*5)+9;
             $("#enemy").append(characterImage);  
             $(this).remove();  
           //  alert("Enemy Selected : "+$(this).attr("data-value")) ;
@@ -37,21 +42,60 @@ $(document).ready(function() {
 
     })
 
+
+    $("#restart").on("click",function(){
+        location.reload();
+    })
+
+
     $("#attack").on("click", function(){
-        v_characterCollections[myCharacterIndex].setupPointsInitial();
-        v_characterCollections[enemyCharacterIndex].setupPointsInitial();
-        // My Character Point Reduction   
-        console.log("BEFORE total Points for My Character -> " + v_characterCollections[myCharacterIndex].total_points);
-        v_characterCollections[myCharacterIndex].enemyAttackPoints(v_characterCollections[enemyCharacterIndex].prev_attack_points);
-        console.log("AFTER total Points for My Character : " + v_characterCollections[myCharacterIndex].total_points);
-        $("#MyScore").text("Score : "+ v_characterCollections[myCharacterIndex].total_points);
+      v_characterCollections[myCharacterIndex].setupPointsInitial();
+      v_characterCollections[enemyCharacterIndex].setupPointsInitial();
 
-        //Enemy Point Reduction
-        console.log("BEFORE total Points for Enemy Character -> " + v_characterCollections[enemyCharacterIndex].total_points);
-        v_characterCollections[enemyCharacterIndex].enemyAttackPoints(v_characterCollections[myCharacterIndex].prev_attack_points);
-        console.log("AFTER total Points for Enemy Character : " + v_characterCollections[enemyCharacterIndex].total_points);
-        $("#EnemyScore").text("Score : "+ v_characterCollections[enemyCharacterIndex].total_points);
+        //Is My Character selected
 
+        if( v_myCharacterSelected){
+            if(v_enemyCharacterSelected){
+                if(v_characterCollections[myCharacterIndex].total_points <= 0 || v_characterCollections[enemyCharacterIndex].total_points <= 0 ){
+                    if(v_characterCollections[myCharacterIndex].total_points < v_characterCollections[enemyCharacterIndex].total_points){
+                        $("#Message").text("You LOST your fight against the enemy !!!");
+                    }
+                    else if(v_characterCollections[myCharacterIndex].total_points > v_characterCollections[enemyCharacterIndex].total_points){
+                        $("#Message").text("You WON your fight against the enemy !!!");
+                        $("#enemy").empty();
+                        $("#EnemyScore").text("");
+                        v_characterCollections[enemyCharacterIndex].meEnemyCharacter = false;
+                        v_enemyCharacterSelected = false;
+                    }
+                    else{
+                        $("#Message").text("It's a draw !!!");                       
+                    }
+
+                }
+                else{
+             
+                    // My Character Point Reduction   
+                    console.log("BEFORE total Points for My Character -> " + v_characterCollections[myCharacterIndex].total_points);
+                    v_characterCollections[myCharacterIndex].enemyAttackPoints(v_characterCollections[enemyCharacterIndex].prev_attack_points);
+                    console.log("AFTER total Points for My Character : " + v_characterCollections[myCharacterIndex].total_points);
+                    $("#MyScore").text("Score : "+ v_characterCollections[myCharacterIndex].total_points);
+                    $("#myCharacterMessage").text("You attacked "+v_characterCollections[enemyCharacterIndex].characterName+" with "+ v_characterCollections[myCharacterIndex].prev_attack_points+ " health points");
+
+                    //Enemy Point Reduction
+                    console.log("BEFORE total Points for Enemy Character -> " + v_characterCollections[enemyCharacterIndex].total_points);
+                    v_characterCollections[enemyCharacterIndex].enemyAttackPoints(v_characterCollections[myCharacterIndex].prev_attack_points);
+                    console.log("AFTER total Points for Enemy Character : " + v_characterCollections[enemyCharacterIndex].total_points);
+                    $("#EnemyScore").text("Score : "+ v_characterCollections[enemyCharacterIndex].total_points);
+                    $("#enemyCharacterMessage").text("Enemy attacked "+v_characterCollections[myCharacterIndex].characterName+" with "+ v_characterCollections[enemyCharacterIndex].prev_attack_points + " health points");
+                } 
+                }
+           else{
+                alert("Please select the enemy character !!!");
+                }
+        }
+        else{
+            alert("Please select the your character and enemy character!!!");
+        }
     })
 
 
@@ -71,11 +115,11 @@ $(document).ready(function() {
        // characterImage.attr("title", $(this).attr("data-value") );
         //caption.text("Actor-" + $(this).attr("data-value"));
 
-        $("#characters").append(characterImage);
                     v_characterCollections[i] = {
 
                                 total_points: 100,
                                 set_points:0,
+                                characterName:"",
                                 prev_attack_points:0,
                             //  src:"",
                     
@@ -83,17 +127,21 @@ $(document).ready(function() {
                                 meEnemyCharacter:false,
                     
                         // This function is used to intial set up of object computing variables
-                        setupPointsInitial: function(){
+                      setupPointsInitial: function(){
                             if(this.meEnemyCharacter){
-                                this.set_points = (5*i)+10 ;
+                                this.set_points = enemySetupPoints;
                             }
                             else if(this.myCharacterActive){
-                                this.set_points += Math.ceil((Math.random())*20);  
+                                this.set_points += 8;  
                             }
                             else{
                                 this.set_points = 0;
                             }
                             this.prev_attack_points = this.set_points;       
+                        },
+
+                        setCharacterName(name){
+                            this.characterName = name;
                         },
                     
                         // This is what the points that enemy attacked me reduces my points
@@ -104,15 +152,23 @@ $(document).ready(function() {
                         // This is what are points that enemy is attacked with (The point value differs if its an enemy or myCharacter)
                         myAttackPoints: function(){
                             if(this.myCharacterActive) {
-                            this.prev_attack_points += Math.ceil((Math.random())*20);  
+                          //  this.prev_attack_points += Math.ceil((Math.random())*20);  
+                            this.prev_attack_points += 8;                            
                             }
                             else if (this.meEnemyCharacter){
                                 this.prev_attack_points = this.set_points;    
                             }
                         }
                     };
+
                     v_characterCollections[i].setupPointsInitial();     
                     v_characterCollections[i].total_points = characterPoints;
+                    $("#characters").append(characterImage);      
         }
     }
 
+
+function newEnemyPick(){
+    v_enemyCharacterSelected = false;
+
+}

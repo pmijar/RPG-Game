@@ -24,6 +24,7 @@ $(document).ready(function() {
             v_characterCollections[myCharacterIndex].myCharacterActive = v_myCharacterSelected;
             v_characterCollections[myCharacterIndex].setCharacterName(" You ");
             $("#myCharacter").append(characterImage);
+            $("#MyScore").text("Score : "+ v_characterCollections[myCharacterIndex].total_points);
             $(this).remove();
             $("#characterArray").text("Enemies available for attack");
            // alert("Character Selected : "+$(this).attr("data-value"));
@@ -36,7 +37,9 @@ $(document).ready(function() {
             v_characterCollections[enemyCharacterIndex].setCharacterName(" Defender ");
             enemySetupPoints = (enemyCharacterIndex*5)+9;
             $("#enemy").append(characterImage);  
-            $(this).remove();  
+            clearMessages();
+            $("#EnemyScore").text("Score : "+ v_characterCollections[enemyCharacterIndex].total_points);
+              $(this).remove();  
           //  alert("Enemy Selected : "+$(this).attr("data-value")) ;
         }
 
@@ -66,6 +69,7 @@ $(document).ready(function() {
                         $("#EnemyScore").text("");
                         v_characterCollections[enemyCharacterIndex].meEnemyCharacter = false;
                         v_enemyCharacterSelected = false;
+
                     }
                     else{
                         $("#Message").text("It's a draw !!!");                       
@@ -97,9 +101,6 @@ $(document).ready(function() {
             alert("Please select the your character and enemy character!!!");
         }
     })
-
-
-
   })
 
   
@@ -112,8 +113,7 @@ $(document).ready(function() {
         characterImage.attr('src', './assets/images/Pic_'+i+'.jpg');
         characterImage.attr("class","img-thumbnail rounded img-responsive myClass");
         characterImage.attr("data-value", i);
-       // characterImage.attr("title", $(this).attr("data-value") );
-        //caption.text("Actor-" + $(this).attr("data-value"));
+
 
                     v_characterCollections[i] = {
 
@@ -167,8 +167,9 @@ $(document).ready(function() {
         }
     }
 
+    function clearMessages(){
+        $("#myCharacterMessage").text("");
+        $("#enemyCharacterMessage").text("");
+        $("#Message").text("");
+    }
 
-function newEnemyPick(){
-    v_enemyCharacterSelected = false;
-
-}

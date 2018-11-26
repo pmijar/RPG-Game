@@ -1,14 +1,14 @@
 body{
     background-size:cover;
     background-image: url("../images/Star_War.jpg");
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 span{
    /* background-color: aquamarine; */
     font-size: 30px;
     text-align: center;
-    color:blueviolet
+    color:blue;
 }
 
 h1{
@@ -17,18 +17,20 @@ h1{
     text-align: center;
 }
 
-h3{
+.characterDsiplay{
     font-size: 25px;
     color:darkblue;
-    background-color: aliceblue;
+    /*background-color: aliceblue;*/
     text-align: center;
+    font-weight: bolder;
+    width: 100%;
 }
 
 .myClass{
-    height:200px;
-    width:250px;
+    height:150px;
+    width:200px;
 }
 
-#characters, #myCharacter, #enemy ,#EnemyScore, #MyScore, #attack{
+#characters, #myCharacter, #enemy ,#EnemyScore, #MyScore, #attack, #Message{
     text-align: center;
 }

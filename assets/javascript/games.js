@@ -1,15 +1,20 @@
-var v_myCharacterSelected = false;
-var v_enemyCharacterSelected = false;
-var v_characterCollections = [];
-var myCharacterIndex = 0;
-var enemyCharacterIndex = 0;
-var enemySetupPoints = 0;
-var winflag = false;
+
+    var v_myCharacterSelected = false;
+    var v_enemyCharacterSelected = false;
+    var v_characterCollections = [];
+    var myCharacterIndex = 0;
+    var enemyCharacterIndex = 0;
+    var MAX_CHARACTERS = 4;
+    var enemySetupPoints = 0;
+    var win_flag = 0;
 
 $(document).ready(function() {
 
+    var local_max_character_clicks = MAX_CHARACTERS;
+
 
     initializeCharacterImages();
+    $("#restart").hide();
 
     $(".myClass").on("click",function(){
         console.log("myClass Click Called......")
@@ -17,6 +22,7 @@ $(document).ready(function() {
         console.log(this);
         characterImage.attr("src", ($(this).attr('src')));
         characterImage.attr("class","img-thumbnail rounded img-responsive myClass");
+
 
         if(!v_myCharacterSelected){
             v_myCharacterSelected = true;
@@ -28,7 +34,6 @@ $(document).ready(function() {
             $(this).remove();
             $("#characterArray").text("Enemies available for attack");
            // alert("Character Selected : "+$(this).attr("data-value"));
-
         }
         else if(!v_enemyCharacterSelected){
             v_enemyCharacterSelected = true;
@@ -41,6 +46,11 @@ $(document).ready(function() {
             $("#EnemyScore").text("Score : "+ v_characterCollections[enemyCharacterIndex].total_points);
               $(this).remove();  
           //  alert("Enemy Selected : "+$(this).attr("data-value")) ;
+        }
+        local_max_character_clicks--; // used as control to switch for game over and character available message
+
+        if(local_max_character_clicks === 0){
+            $("#characterArray").text("No further enemies left to fight");
         }
 
     })
@@ -57,6 +67,11 @@ $(document).ready(function() {
 
         //Is My Character selected
 
+        if(win_flag >= (MAX_CHARACTERS-1) ){
+            $("#Message").text("You WON the game, press restart button to play a new game !!!"); 
+            $("#restart").show();      
+        }
+        else{
         if( v_myCharacterSelected){
             if(v_enemyCharacterSelected){
                 if(v_characterCollections[myCharacterIndex].total_points <= 0 || v_characterCollections[enemyCharacterIndex].total_points <= 0 ){
@@ -65,8 +80,10 @@ $(document).ready(function() {
                     }
                     else if(v_characterCollections[myCharacterIndex].total_points > v_characterCollections[enemyCharacterIndex].total_points){
                         $("#Message").text("You WON your fight against the enemy !!!");
+                        win_flag++;
                         $("#enemy").empty();
                         $("#EnemyScore").text("");
+                        $("#enemyCharacterMessage").text("");                    
                         v_characterCollections[enemyCharacterIndex].meEnemyCharacter = false;
                         v_enemyCharacterSelected = false;
 
@@ -100,13 +117,14 @@ $(document).ready(function() {
         else{
             alert("Please select the your character and enemy character!!!");
         }
+    }
     })
   })
 
   
 
   function initializeCharacterImages(){
-    for (var i = 0; i < 3; i++ ){
+    for (var i = 0; i < MAX_CHARACTERS; i++ ){
         var characterImage = $("<img>");
 
         var characterPoints = 100+(10*i); // Total Character points when initalized
@@ -120,9 +138,7 @@ $(document).ready(function() {
                                 total_points: 100,
                                 set_points:0,
                                 characterName:"",
-                                prev_attack_points:0,
-                            //  src:"",
-                    
+                                prev_attack_points:0,          
                                 myCharacterActive:false,
                                 meEnemyCharacter:false,
                     

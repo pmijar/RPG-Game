@@ -24,8 +24,8 @@
 <br>
 
 <div class="row">
-    <div class="col-sm-12">
-          <h3><span id="characterArray"> Characters Available</span></h3><br>
+    <div class="col-sm-12 characterDsiplay">
+          <span id="characterArray"> Characters Available</span><br>
           <div id="characters"></div>
      </div>
 </div>
@@ -33,9 +33,20 @@
 <br>
 <div class="row">
     <div class="col-sm-5">
-          <h3> Your Character </h3> <br>
-          <div id="myCharacter"></div>
-          <h3 id="MyScore"></h3>
+          <div class="row characterDsiplay d-flex justify-content-center">
+              Your Character
+          </div>
+          <div class="row d-flex justify-content-center">
+              <div id="myCharacter"></div>
+          </div>
+          <div class="row d-flex justify-content-center">
+              <span id="MyScore"></span>
+          </div>
+          <div class="row d-flex justify-content-center">
+              <div class="col-sm-12">
+                    <span id="myCharacterMessage"></span>
+              </div>
+          </div>
      </div>
     <div class="col-sm-2">
         <br><br>
@@ -43,24 +54,25 @@
         <br><br>
         <button id="restart" class="btn btn-info btn-lg btn-block">Restart</button>       
      </div>
-    <div class="col-sm-5">
-          <h3> Defender </h3><br>
-          <div id="enemy"></div>
-          <h3 id="EnemyScore"></h3>
-     </div>
+     <div class="col-sm-5">
+        <div class="row characterDsiplay d-flex justify-content-center">
+            Defender
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div id="enemy"></div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <span id="EnemyScore"></span>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <div class="col-sm-12">
+                  <span id="enemyCharacterMessage"></span>
+            </div>
+        </div>
+   </div>
 </div>
 <br>
 <br>
-<div class="row">
-    <div class="col-sm-12">
-          <span id="myCharacterMessage"></span>
-     </div>
-</div>
-<div class="row">
-    <div class="col-sm-12">
-          <span id="enemyCharacterMessage"></span>
-     </div>
-</div>
 <div class="row">
     <div class="col-sm-12">
           <span id="Message"></span>

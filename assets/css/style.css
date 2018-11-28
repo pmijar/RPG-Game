@@ -8,7 +8,7 @@ span{
    /* background-color: aquamarine; */
     font-size: 30px;
     text-align: center;
-    color:blue;
+    color:whitesmoke;
 }
 
 h1{
@@ -19,7 +19,7 @@ h1{
 
 .characterDsiplay{
     font-size: 25px;
-    color:darkblue;
+    color:black;
     /*background-color: aliceblue;*/
     text-align: center;
     font-weight: bolder;

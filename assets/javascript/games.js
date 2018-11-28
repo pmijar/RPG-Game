@@ -1,4 +1,9 @@
-
+/*
+Rutgers Full Stack coding Bootcamp Program
+Description: This is a RPG Game where the user selects and character and then fights against the enemy characters
+Author : Prashanth K Mijar
+Date: 26-Nov-2018 
+*/
     var v_myCharacterSelected = false;
     var v_enemyCharacterSelected = false;
     var v_characterCollections = [];
@@ -33,7 +38,6 @@ $(document).ready(function() {
             $("#MyScore").text("Score : "+ v_characterCollections[myCharacterIndex].total_points);
             $(this).remove();
             $("#characterArray").text("Enemies available for attack");
-           // alert("Character Selected : "+$(this).attr("data-value"));
         }
         else if(!v_enemyCharacterSelected){
             v_enemyCharacterSelected = true;
@@ -45,7 +49,6 @@ $(document).ready(function() {
             clearMessages();
             $("#EnemyScore").text("Score : "+ v_characterCollections[enemyCharacterIndex].total_points);
               $(this).remove();  
-          //  alert("Enemy Selected : "+$(this).attr("data-value")) ;
         }
         local_max_character_clicks--; // used as control to switch for game over and character available message
 
@@ -179,7 +182,8 @@ $(document).ready(function() {
 
                     v_characterCollections[i].setupPointsInitial();     
                     v_characterCollections[i].total_points = characterPoints;
-                    $("#characters").append(characterImage);      
+                    $("#characters").append(characterImage);  
+
         }
     }
 

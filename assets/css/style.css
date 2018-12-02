@@ -1,25 +1,25 @@
 body{
     background-size:cover;
-    background-image: url("../images/Star_War.jpg");
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-image: url("../images/Wooden-background.jpg");
+    font-family:'Times New Roman', Times, serif;
 }
 
 span{
    /* background-color: aquamarine; */
     font-size: 30px;
     text-align: center;
-    color:whitesmoke;
+    color:darkorange;
 }
 
 h1{
-    background-color: aquamarine;
-    font-size: 55px;
+    background-color: black;
+    font-size: 50px;
     text-align: center;
 }
 
 .characterDsiplay{
     font-size: 25px;
-    color:black;
+    color:whitesmoke;
     /*background-color: aliceblue;*/
     text-align: center;
     font-weight: bolder;
@@ -31,6 +31,6 @@ h1{
     width:200px;
 }
 
-#characters, #myCharacter, #enemy ,#EnemyScore, #MyScore, #attack, #Message{
+#characters, #myCharacter, #enemy ,#EnemyScore, #MyScore, #attack, #Message {
     text-align: center;
 }

@@ -23,6 +23,7 @@ $(document).ready(function() {
 
     $(".myClass").on("click",function(){
         console.log("myClass Click Called......")
+        $("#Message").empty();
         var characterImage = $("<img>");
         console.log(this);
         characterImage.attr("src", ($(this).attr('src')));
@@ -67,6 +68,14 @@ $(document).ready(function() {
     $("#attack").on("click", function(){
       v_characterCollections[myCharacterIndex].setupPointsInitial();
       v_characterCollections[enemyCharacterIndex].setupPointsInitial();
+
+      var enemyCharacterSel = $("<div>");
+      var myCharacterSel = $("<div>");
+
+      enemyCharacterSel.attr("class", "alert alert-warning");
+      myCharacterSel.attr("class", "alert alert-warning");
+
+      $("#Message").empty();
 
         //Is My Character selected
 
@@ -114,11 +123,15 @@ $(document).ready(function() {
                 } 
                 }
            else{
-                alert("Please select the enemy character !!!");
+                enemyCharacterSel.text("Please select the enemy character !!!");
+                $("#Message").append(enemyCharacterSel);
+               // alert("Please select the enemy character !!!");
                 }
         }
         else{
-            alert("Please select the your character and enemy character!!!");
+            myCharacterSel.text("Please select the your character and enemy character!!!");
+            $("#Message").append(myCharacterSel);
+          //  alert("Please select the your character and enemy character!!!");
         }
     }
     })
